@@ -367,7 +367,13 @@ impl Client {
     fn get_image(&self) -> JfResult<Url> {
         let session = self.session.as_ref().unwrap();
 
-        let path = "Items/".to_string() + &session.item_id + "/Images/Primary";
+        let id = if matches!(session.now_playing_item.media_type, MediaType::Music) {
+            &session.now_playing_item.id
+        } else {
+            &session.item_id
+        };
+
+        let path = "Items/".to_string() + id + "/Images/Primary";
 
         let image_url = self.url.join(&path)?;
 
