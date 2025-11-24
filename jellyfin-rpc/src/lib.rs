@@ -482,12 +482,12 @@ impl Client {
         let critic_score = &session
             .now_playing_item
             .critic_rating
-            .map(|s| format!("🍅 {}/100", s))
+            .map(|s| format!("{}/100", s))
             .unwrap_or_default();
         let community_score = &session
             .now_playing_item
             .community_rating
-            .map(|s| format!("⭐ {:.1}/10", s))
+            .map(|s| format!("{:.1}/10", s))
             .unwrap_or_default();
 
         result = result
