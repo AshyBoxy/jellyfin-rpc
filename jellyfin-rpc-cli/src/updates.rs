@@ -1,11 +1,12 @@
 use crate::VERSION;
 use colored::Colorize;
 use log::warn;
+use log::info;
 
 pub fn checker() {
     let current = VERSION.unwrap_or("0.0.0").to_string();
     let latest = get_latest_github().unwrap_or(current.clone());
-    if latest != current {
+    if latest != current && !current.contains("+") { // assume + is some custom build
         warn!(
             "{} (Current: v{}, Latest: v{})",
             "You are not running the latest version of Jellyfin-RPC"
@@ -25,6 +26,8 @@ pub fn checker() {
             "{}",
             "This can be safely ignored if you are running a prerelease version".bold()
         );
+    } else {
+        info!("You are running Jellyfin-RPC v{}", current);
     }
 }
 
